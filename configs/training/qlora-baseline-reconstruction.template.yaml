@@ -1,0 +1,94 @@
+# RECONSTRUCTION TEMPLATE ONLY — NOT A VERIFIED TRAINING RUN MANIFEST.
+# Fill every required field from original logs or a reproducible rerun before training.
+status: reconstruction_template_not_run_manifest
+
+model:
+  artifact: roime81/trimorious-research-4B
+  base_model: unsloth/Qwen2.5-3B-Instruct-bnb-4bit
+  base_model_revision: null
+  adapter_revision: null
+  adapter_only: true
+  merged_checkpoint: false
+  tokenizer_revision: null
+  chat_template_sha256: null
+
+reported_in_existing_readme_not_verified:
+  lora:
+    rank: 16
+    alpha: 16
+    dropout: 0.0
+    target_modules:
+      - q_proj
+      - k_proj
+      - v_proj
+      - o_proj
+      - gate_proj
+      - up_proj
+      - down_proj
+  per_device_batch_size: 2
+  gradient_accumulation_steps: 4
+  learning_rate: 0.0002
+  scheduler: cosine
+
+training:
+  seed: null
+  epochs: null
+  max_steps: null
+  warmup_steps: null
+  weight_decay: null
+  optimizer: null
+  max_sequence_length: null
+  packing: null
+  precision: null
+  gradient_checkpointing: null
+  gradient_clipping: null
+  effective_global_batch_size: null
+  effective_training_tokens: null
+
+data:
+  datasets: []
+  # Each entry must pin a full Hub commit SHA and include exact split/filter versions.
+  # Example:
+  # - dataset_id: D01
+  #   repo_id: roime81/trimorious-scientific-instructions
+  #   revision: <40-character commit SHA>
+  #   split: train
+  #   preprocessing_commit: <git SHA>
+  #   sample_count: null
+  #   token_count: null
+
+environment:
+  python: null
+  pytorch: null
+  transformers: null
+  peft: null
+  trl: null
+  unsloth: null
+  cuda: null
+  os: null
+  gpu_model: null
+  gpu_count: null
+  gpu_memory_gb: null
+  lockfile_sha256: null
+
+run:
+  run_id: null
+  code_commit: null
+  config_sha256: null
+  started_at_utc: null
+  completed_at_utc: null
+  checkpoint_paths: []
+  training_log_path: null
+  final_adapter_sha256: null
+
+evaluation:
+  benchmark_revision: null
+  results_path: null
+  evaluation_code_commit: null
+  base_model_comparison: null
+  original_adapter_comparison: null
+
+notes:
+  - Values under reported_in_existing_readme_not_verified are copied from current model documentation, not confirmed training logs.
+  - The README inference example uses max_seq_length 2048; this is not confirmation of the training sequence length.
+  - Do not start a production retraining run with null critical fields.
