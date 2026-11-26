@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "status": "proposed",
+  "gates": [
+    {
+      "id": "G01",
+      "name": "Dataset schema integrity",
+      "acceptance": "100% of records in a released dataset revision pass its declared versioned schema.",
+      "evidence": ["validation_report.json", "dataset_revision_sha"]
+    },
+    {
+      "id": "G02",
+      "name": "Record provenance",
+      "acceptance": "Every released record has a resolvable source or documented generation provenance and a rights status.",
+      "evidence": ["provenance_report.json", "rights_register.csv"]
+    },
+    {
+      "id": "G03",
+      "name": "Deduplication and leakage",
+      "acceptance": "Exact and semantic deduplication is reported; train/validation/test leakage is checked; hidden evaluation is isolated.",
+      "evidence": ["deduplication_report.json", "split_leakage_report.json"]
+    },
+    {
+      "id": "G04",
+      "name": "Mathematical verification",
+      "acceptance": "Every record designated as independently verified has a reproducible verifier, version, output and status.",
+      "evidence": ["verification_report.json", "verifier_logs"]
+    },
+    {
+      "id": "G05",
+      "name": "Scientific evidence",
+      "acceptance": "Evidence-backed outputs trace claims to sources and passage locations; unsupported claims are scored.",
+      "evidence": ["evidence_support_report.json", "citation_integrity_report.json"]
+    },
+    {
+      "id": "G06",
+      "name": "Baseline comparison",
+      "acceptance": "Candidate model is compared with both the base model and original Trimorious checkpoint on the same frozen benchmark.",
+      "evidence": ["evaluation_results.json", "benchmark_revision", "scoring_code_commit"]
+    },
+    {
+      "id": "G07",
+      "name": "Safety and reliability",
+      "acceptance": "Prompt-injection, malicious-tool, misinformation, privacy, hazardous request and abstention tests are documented with regression outcomes.",
+      "evidence": ["safety_report.json", "regression_suite"]
+    },
+    {
+      "id": "G08",
+      "name": "Reproducible training",
+      "acceptance": "Complete run manifest includes code/data/model revisions, seeds, dependencies, hardware and training arguments.",
+      "evidence": ["training_config.yaml", "environment.lock", "run_manifest.json"]
+    },
+    {
+      "id": "G09",
+      "name": "Inference compatibility",
+      "acceptance": "Tokenizer, chat template, generation config, local inference and declared serving formats pass documented smoke tests.",
+      "evidence": ["inference_smoke_tests.json", "serving_compatibility.md"]
+    },
+    {
+      "id": "G10",
+      "name": "Deployment performance",
+      "acceptance": "Latency, throughput, memory and quantization behavior are measured on stated hardware and workload.",
+      "evidence": ["serving_benchmark.json", "hardware_manifest.json"]
+    },
+    {
+      "id": "G11",
+      "name": "Licensing and redistribution",
+      "acceptance": "Base model, adapter, source datasets, papers, code and derivative materials have a documented compatible rights decision.",
+      "evidence": ["license_audit.md", "source_attribution.csv"]
+    },
+    {
+      "id": "G12",
+      "name": "Documentation and rollback",
+      "acceptance": "Model/dataset cards, citation metadata, release notes, checksums and rollback instructions are published.",
+      "evidence": ["README.md", "CITATION.cff", "release_manifest.json", "rollback.md"]
+    }
+  ]
+}
