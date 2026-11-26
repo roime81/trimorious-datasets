@@ -192,14 +192,28 @@ def main() -> int:
 
     registry = json.loads(args.registry.read_text(encoding="utf-8"))
     entries = registry["datasets"]
-    selected = set(args.dataset or [entry["id"] for entry in entries])
-    unknown = selected.difference(entry["id"] for entry in entries)
+    existing_entries = [
+        entry for entry in entries
+        if entry.get("status") == "existing_baseline"
+        and entry.get("hub_repo")
+        and entry.get("record_type")
+    ]
+    all_ids = {entry["id"] for entry in entries}
+    existing_ids = {entry["id"] for entry in existing_entries}
+    selected = set(args.dataset or existing_ids)
+    unknown = selected.difference(all_ids)
     if unknown:
         raise SystemExit(f"Unknown dataset IDs: {sorted(unknown)}")
+    not_yet_created = selected.difference(existing_ids)
+    if not_yet_created:
+        raise SystemExit(
+            "These datasets are only proposed and do not have Hub sources yet: "
+            f"{sorted(not_yet_created)}"
+        )
 
     results = []
     failures = []
-    for entry in entries:
+    for entry in existing_entries:
         if entry["id"] not in selected:
             continue
         try:
