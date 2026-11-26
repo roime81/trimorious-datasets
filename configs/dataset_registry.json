@@ -1,0 +1,369 @@
+{
+  "registry_version": "2.0.0",
+  "project": "Trimorious",
+  "owner": "roime81",
+  "default_hub_revision": "main",
+  "datasets": [
+    {
+      "id": "D01",
+      "name": "Scientific Instructions",
+      "hub_repo": "roime81/trimorious-scientific-instructions",
+      "github_mirror": "roime81/trimorious-scientific-instructions",
+      "current_record_type": "chat_messages",
+      "current_schema": "schemas/v1/messages-record.schema.json",
+      "target_schema": "schemas/v2/scientific-instruction.schema.json",
+      "splits": [
+        "train",
+        "validation"
+      ],
+      "observed_examples": {
+        "train": 3335,
+        "validation": 371
+      },
+      "target_examples": {
+        "initial_min": 50000,
+        "initial_max": 100000
+      },
+      "intended_use": [
+        "scientific_instruction_sft"
+      ],
+      "target_categories": [
+        "scientific_explanation",
+        "hypothesis_generation",
+        "hypothesis_testing",
+        "causal_inference",
+        "literature_review",
+        "research_methodology",
+        "peer_review",
+        "scientific_criticism",
+        "evidence_synthesis",
+        "uncertainty_reasoning",
+        "multidisciplinary_reasoning",
+        "scientific_communication"
+      ],
+      "status": "existing_baseline",
+      "current_gate": "record_level_audit_required",
+      "notes": "Existing counts are published metadata, not independently recomputed. Preserve current validation split and test for exact and semantic leakage. Build versioned derivatives; do not rewrite source rows in place.",
+      "record_type": "chat_messages",
+      "target_record_type": "scientific_instruction"
+    },
+    {
+      "id": "D02",
+      "name": "Symbolic Trajectories",
+      "hub_repo": "roime81/trimorious-symbolic-trajectories",
+      "github_mirror": "roime81/trimorious-symbolic-trajectories",
+      "current_record_type": "chat_messages",
+      "current_schema": "schemas/v1/messages-record.schema.json",
+      "target_schema": "schemas/v2/symbolic-trajectory.schema.json",
+      "splits": [
+        "train"
+      ],
+      "observed_examples": {
+        "train": 7784
+      },
+      "target_examples": {
+        "initial_min": 100000,
+        "initial_max": 250000
+      },
+      "intended_use": [
+        "mathematical_reasoning_sft",
+        "symbolic_process_supervision"
+      ],
+      "target_domains": [
+        "algebra",
+        "calculus",
+        "linear_algebra",
+        "discrete_mathematics",
+        "statistics",
+        "optimization",
+        "numerical_methods",
+        "differential_equations",
+        "physics",
+        "chemistry",
+        "computer_science",
+        "operations_research"
+      ],
+      "status": "existing_baseline",
+      "current_gate": "symbolic_correctness_and_provenance_audit_required",
+      "notes": "Target representation is a structured execution trajectory with assumptions, typed steps, normalized final answer and independent verification. Include multiple valid paths, labelled errors, boundary conditions and numerical cross-validation.",
+      "record_type": "chat_messages",
+      "target_record_type": "symbolic_trajectory"
+    },
+    {
+      "id": "D03",
+      "name": "Knowledge Base",
+      "hub_repo": "roime81/trimorious-knowledge-base",
+      "github_mirror": "roime81/trimorious-knowledge-base",
+      "current_record_type": "knowledge_document",
+      "current_schema": "schemas/v1/knowledge-document.schema.json",
+      "target_schema": "schemas/v2/scientific-evidence.schema.json",
+      "splits": [
+        "train"
+      ],
+      "observed_examples": {
+        "train": 7784
+      },
+      "target_examples": {
+        "initial_min": 50000,
+        "initial_max": 100000,
+        "unit": "validated_claims"
+      },
+      "intended_use": [
+        "retrieval",
+        "evidence_graph",
+        "grounded_generation"
+      ],
+      "target_entities": [
+        "research_paper",
+        "scientific_claim",
+        "equation",
+        "experiment",
+        "research_finding"
+      ],
+      "target_relations": [
+        "supports",
+        "contradicts",
+        "derived_from",
+        "validated_by"
+      ],
+      "status": "existing_baseline",
+      "current_gate": "source_rights_and_claim_provenance_audit_required",
+      "notes": "Separate raw source documents, extracted chunks, normalized claims and generated training examples. Never overwrite source evidence with a generated interpretation. The target count refers to validated claims, not source documents.",
+      "record_type": "knowledge_document",
+      "target_record_type": "scientific_evidence"
+    },
+    {
+      "id": "D04",
+      "name": "Agentic Reasoning Knowledge",
+      "hub_repo": "roime81/trimorious-agentic-reasoning-knowledge",
+      "github_mirror": "roime81/trimorious-agentic-reasoning-knowledge",
+      "current_record_type": "agentic_messages",
+      "current_schema": "schemas/v1/agentic-record.schema.json",
+      "target_schema": "schemas/v2/agentic-trajectory.schema.json",
+      "splits": [
+        "train"
+      ],
+      "observed_examples": {
+        "train": 225
+      },
+      "target_examples": {
+        "initial_min": 20000,
+        "initial_max": 50000
+      },
+      "intended_use": [
+        "agentic_sft",
+        "tool_use",
+        "planning",
+        "verification",
+        "recovery"
+      ],
+      "target_categories": [
+        "planning",
+        "tool_selection",
+        "tool_execution",
+        "observation",
+        "replanning",
+        "multi_agent",
+        "verification",
+        "recovery",
+        "research_orchestration",
+        "decision_making"
+      ],
+      "status": "existing_baseline",
+      "current_gate": "tool_trace_and_outcome_verifiability_audit_required",
+      "notes": "Expand with successful, partially successful and failed trajectories. Failed actions should teach error detection and recovery, not blind imitation.",
+      "record_type": "agentic_messages",
+      "target_record_type": "agentic_trajectory"
+    },
+    {
+      "id": "D05",
+      "name": "Mathematical Verification",
+      "hub_repo": null,
+      "github_mirror": null,
+      "target_schema": "schemas/v2/mathematical-verification.schema.json",
+      "target_examples": {
+        "initial": 50000
+      },
+      "intended_use": [
+        "independent_math_verification",
+        "solver_supervision",
+        "counterexample_learning"
+      ],
+      "status": "proposed",
+      "target_content": [
+        "sympy_solutions",
+        "numerical_verification",
+        "formal_proofs",
+        "counterexamples",
+        "dimensional_analysis",
+        "incorrect_derivations_and_error_labels"
+      ],
+      "current_gate": "not_created",
+      "proposed_hub_repo": "roime81/trimorious-mathematical-verification",
+      "proposed_github_mirror": "roime81/trimorious-mathematical-verification"
+    },
+    {
+      "id": "D06",
+      "name": "Scientific Preferences",
+      "hub_repo": null,
+      "github_mirror": null,
+      "target_schema": "schemas/v2/scientific-preference.schema.json",
+      "target_examples": {
+        "initial_min": 30000,
+        "initial_max": 50000,
+        "unit": "preference_pairs"
+      },
+      "intended_use": [
+        "dpo",
+        "preference_optimization",
+        "scientific_critique"
+      ],
+      "status": "proposed",
+      "target_content": [
+        "correct_vs_incorrect",
+        "evidence_supported_vs_unsupported",
+        "strong_vs_weak_hypotheses",
+        "uncertainty_calibration",
+        "citation_integrity"
+      ],
+      "current_gate": "expert_labeling_protocol_required",
+      "notes": "Do not create preference labels with an unvalidated judge alone. Require rubric-based annotation, adjudication and agreement measurement.",
+      "proposed_hub_repo": "roime81/trimorious-scientific-preferences",
+      "proposed_github_mirror": "roime81/trimorious-scientific-preferences"
+    },
+    {
+      "id": "D07",
+      "name": "Scientific Evaluation",
+      "hub_repo": null,
+      "github_mirror": null,
+      "target_schema": "schemas/v2/scientific-evaluation.schema.json",
+      "target_examples": {
+        "initial_min": 5000,
+        "initial_max": 10000
+      },
+      "intended_use": [
+        "held_out_evaluation_only"
+      ],
+      "status": "proposed",
+      "target_content": [
+        "mathematics",
+        "scientific_reasoning",
+        "causal_reasoning",
+        "evidence_retrieval",
+        "hypothesis_testing",
+        "long_context"
+      ],
+      "current_gate": "split_governance_and_hidden_test_policy_required",
+      "notes": "Evaluation-only. Never use D07 test items for SFT, DPO, reward-model training, RL, prompt tuning or repeated model selection.",
+      "proposed_hub_repo": "roime81/trimorious-scientific-evaluation",
+      "proposed_github_mirror": "roime81/trimorious-scientific-evaluation"
+    },
+    {
+      "id": "D08",
+      "name": "Multilingual Science",
+      "hub_repo": null,
+      "github_mirror": null,
+      "target_schema": "schemas/v2/multilingual-science.schema.json",
+      "target_examples": {
+        "initial_min": 30000,
+        "initial_max": 50000
+      },
+      "intended_use": [
+        "multilingual_scientific_instruction",
+        "terminology_alignment"
+      ],
+      "status": "proposed",
+      "target_languages": [
+        "en",
+        "ms",
+        "id",
+        "zh",
+        "ar",
+        "es",
+        "fr",
+        "ja"
+      ],
+      "target_content": [
+        "scientific_terminology_alignment",
+        "translations",
+        "bilingual_explanations",
+        "equivalent_technical_questions"
+      ],
+      "current_gate": "native_language_review_and_translation_provenance_required",
+      "proposed_hub_repo": "roime81/trimorious-multilingual-science",
+      "proposed_github_mirror": "roime81/trimorious-multilingual-science"
+    },
+    {
+      "id": "D09",
+      "name": "Safety and Reliability",
+      "hub_repo": null,
+      "github_mirror": null,
+      "target_schema": "schemas/v2/safety-reliability.schema.json",
+      "target_examples": {
+        "initial_min": 15000,
+        "initial_max": 30000
+      },
+      "intended_use": [
+        "safety_training_candidate",
+        "safety_evaluation"
+      ],
+      "status": "proposed",
+      "target_content": [
+        "prompt_injection",
+        "malicious_tool_instructions",
+        "citation_manipulation",
+        "scientific_misinformation",
+        "unsupported_medical_claims",
+        "hazardous_scientific_requests",
+        "privacy",
+        "uncertainty_and_abstention",
+        "document_handling"
+      ],
+      "current_gate": "risk_taxonomy_and_policy_review_required",
+      "proposed_hub_repo": "roime81/trimorious-safety-and-reliability",
+      "proposed_github_mirror": "roime81/trimorious-safety-and-reliability"
+    },
+    {
+      "id": "D10",
+      "name": "Scientific Environments",
+      "hub_repo": null,
+      "github_mirror": null,
+      "target_schema": "schemas/v2/scientific-environment.schema.json",
+      "target_examples": {
+        "initial_min": 100,
+        "initial_max": 500,
+        "unit": "executable_environments"
+      },
+      "intended_use": [
+        "reinforcement_learning",
+        "tool_use_training",
+        "verifiable_agent_evaluation"
+      ],
+      "status": "proposed",
+      "target_content": [
+        "mathematical_problem_solving",
+        "physics_simulation",
+        "chemistry_calculation",
+        "scientific_data_analysis",
+        "optimization",
+        "research_retrieval",
+        "experimental_design",
+        "multi_step_investigation"
+      ],
+      "current_gate": "sandboxed_environment_contract_and_reward_validation_required",
+      "notes": "Every environment must define observation, action space, transition, termination, resource limits and verifiable reward. Environments are not the same unit as generated episodes.",
+      "proposed_hub_repo": "roime81/trimorious-scientific-environments",
+      "proposed_github_mirror": "roime81/trimorious-scientific-environments"
+    }
+  ],
+  "license_review": {
+    "repository_license": "Apache-2.0",
+    "status": "provisional",
+    "required_checks": [
+      "Confirm the license declared on each Hugging Face dataset card.",
+      "Record licenses and redistribution terms for every upstream paper, abstract, dataset, code sample, image, table and derived passage.",
+      "Audit base-model license and terms separately from adapter and dataset licenses.",
+      "Do not assume a repository-level Apache-2.0 license grants rights to third-party source material or upstream model weights."
+    ]
+  }
+}

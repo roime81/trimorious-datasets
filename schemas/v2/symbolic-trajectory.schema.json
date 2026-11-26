@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://trimorious.org/schemas/v2/symbolic-trajectory.schema.json",
+  "title": "Trimorious symbolic execution trajectory",
+  "type": "object",
+  "required": ["trajectory_id", "problem_id", "domain", "difficulty", "problem", "steps", "final_answer", "verification", "provenance"],
+  "properties": {
+    "trajectory_id": {"type": "string", "pattern": "^TRIM-SYM-[A-Za-z0-9_-]+$"},
+    "problem_id": {"type": "string", "minLength": 1},
+    "domain": {"type": "string", "minLength": 1},
+    "subdomain": {"type": "string"},
+    "difficulty": {"type": "string", "enum": ["introductory", "beginner", "intermediate", "advanced", "expert"]},
+    "problem": {"type": "string", "minLength": 1},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "variables": {"type": "array", "items": {"$ref": "#/$defs/variable"}},
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/step"}
+    },
+    "final_answer": {"type": "string", "minLength": 1},
+    "alternative_paths": {"type": "array", "items": {"type": "array", "items": {"$ref": "#/$defs/step"}}},
+    "error_examples": {"type": "array", "items": {"$ref": "#/$defs/error_example"}},
+    "verification": {"$ref": "#/$defs/verification"},
+    "source": {"type": "string"},
+    "provenance": {"$ref": "#/$defs/provenance"},
+    "quality_score": {"type": "number", "minimum": 0, "maximum": 1}
+  },
+  "$defs": {
+    "variable": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {"type": "string"},
+        "symbol": {"type": "string"},
+        "meaning": {"type": "string"},
+        "domain": {"type": "string"},
+        "unit": {"type": "string"},
+        "constraints": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "step": {
+      "type": "object",
+      "required": ["step", "operation", "expression"],
+      "properties": {
+        "step": {"type": "integer", "minimum": 1},
+        "operation": {"type": "string", "minLength": 1},
+        "expression": {"type": "string"},
+        "explanation": {"type": "string"},
+        "tool": {"type": "string"},
+        "tool_input": {"type": "object"},
+        "tool_output": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "error_example": {
+      "type": "object",
+      "required": ["incorrect_step", "error_type"],
+      "properties": {
+        "incorrect_step": {"type": "string"},
+        "error_type": {"type": "string"},
+        "correction": {"type": "string"},
+        "explanation": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "verification": {
+      "type": "object",
+      "required": ["engine", "status"],
+      "properties": {
+        "engine": {"type": "string"},
+        "engine_version": {"type": "string"},
+        "status": {"type": "string", "enum": ["passed", "failed", "partial", "not_run"]},
+        "verification_expression": {"type": "string"},
+        "numerical_tolerance": {"type": "number", "minimum": 0},
+        "output": {"type": "string"},
+        "verified_at": {"type": "string", "format": "date-time"}
+      },
+      "additionalProperties": true
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["origin_type"],
+      "properties": {
+        "origin_type": {"type": "string"},
+        "source_id": {"type": "string"},
+        "source_url": {"type": "string", "format": "uri"},
+        "license": {"type": "string"},
+        "generator": {"type": "string"},
+        "review_status": {"type": "string"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

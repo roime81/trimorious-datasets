@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://trimorious.org/schemas/v2/scientific-evidence.schema.json",
+  "title": "Trimorious scientific evidence graph record",
+  "type": "object",
+  "required": ["entity_id", "entity_type", "text", "source_ref", "provenance"],
+  "properties": {
+    "entity_id": {"type": "string", "minLength": 1},
+    "entity_type": {"type": "string", "enum": ["research_paper", "source_document", "extracted_chunk", "scientific_claim", "equation", "experiment", "research_finding"]},
+    "doc_id": {"type": "string"},
+    "title": {"type": "string"},
+    "text": {"type": "string", "minLength": 1},
+    "claim_id": {"type": "string"},
+    "claim_type": {"type": "string", "enum": ["observation", "hypothesis", "method", "result", "conclusion", "limitation", "unknown"]},
+    "claim_text": {"type": "string"},
+    "evidence_text": {"type": "string"},
+    "evidence_location": {
+      "type": "object",
+      "properties": {
+        "page": {"type": ["integer", "null"], "minimum": 1},
+        "section": {"type": "string"},
+        "paragraph": {"type": ["integer", "null"], "minimum": 1},
+        "table": {"type": "string"},
+        "figure": {"type": "string"},
+        "offset_start": {"type": ["integer", "null"], "minimum": 0},
+        "offset_end": {"type": ["integer", "null"], "minimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "doi": {"type": "string"},
+    "authors": {"type": "array", "items": {"type": "string"}},
+    "publication_date": {"type": "string", "format": "date"},
+    "source_ref": {"type": "string", "minLength": 1},
+    "source_url": {"type": "string", "format": "uri"},
+    "equation_latex": {"type": "string"},
+    "variables": {"type": "array", "items": {"type": "object"}},
+    "units": {"type": "array", "items": {"type": "string"}},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["relation", "target_entity_id"],
+        "properties": {
+          "relation": {"type": "string", "enum": ["supports", "contradicts", "derived_from", "validated_by"]},
+          "target_entity_id": {"type": "string"},
+          "rationale": {"type": "string"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "extraction_confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "review_status": {"type": "string", "enum": ["unreviewed", "automated_check", "human_reviewed", "adjudicated"]},
+    "provenance": {
+      "type": "object",
+      "required": ["license_status"],
+      "properties": {
+        "license_status": {"type": "string", "enum": ["redistributable", "metadata_only", "permission_required", "restricted", "unknown"]},
+        "license": {"type": "string"},
+        "retrieved_at": {"type": "string", "format": "date-time"},
+        "extractor": {"type": "string"},
+        "extractor_version": {"type": "string"},
+        "checksum_sha256": {"type": "string", "pattern": "^[a-fA-F0-9]{64}$"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

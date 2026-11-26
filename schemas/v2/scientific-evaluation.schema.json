@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://trimorious.org/schemas/v2/scientific-evaluation.schema.json",
+  "title": "Trimorious scientific evaluation case",
+  "type": "object",
+  "required": ["case_id", "task", "domain", "expected_evaluation", "split_policy"],
+  "properties": {
+    "case_id": {"type": "string"},
+    "task": {"type": "string", "minLength": 1},
+    "domain": {"type": "string"},
+    "subdomain": {"type": "string"},
+    "difficulty": {"type": "string"},
+    "prompt": {"type": "string"},
+    "reference_answer": {"type": "string"},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "verifier": {"type": "object", "properties": {"type": {"type": "string"}, "version": {"type": "string"}, "code_ref": {"type": "string"}, "expected_output": {"type": "string"}}, "additionalProperties": true},
+    "expected_evaluation": {"type": "object", "required": ["metric"], "properties": {"metric": {"type": "string"}, "threshold": {"type": "number"}, "rubric": {"type": "array", "items": {"type": "object"}}, "scoring_notes": {"type": "string"}}, "additionalProperties": true},
+    "split_policy": {"type": "object", "required": ["split", "training_allowed"], "properties": {"split": {"type": "string", "enum": ["development", "public_test", "hidden_test"]}, "training_allowed": {"type": "boolean", "const": false}, "access_control": {"type": "string"}, "version": {"type": "string"}}, "additionalProperties": false},
+    "provenance": {"type": "object", "properties": {"source_id": {"type": "string"}, "license": {"type": "string"}, "review_status": {"type": "string"}}, "additionalProperties": true}
+  },
+  "additionalProperties": true
+}

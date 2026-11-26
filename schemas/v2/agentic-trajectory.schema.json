@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://trimorious.org/schemas/v2/agentic-trajectory.schema.json",
+  "title": "Trimorious agentic reasoning trajectory",
+  "type": "object",
+  "required": ["trajectory_id", "task", "goal", "plan", "actions", "observations", "outcome", "provenance"],
+  "properties": {
+    "trajectory_id": {"type": "string", "pattern": "^TRIM-AGENT-[A-Za-z0-9_-]+$"},
+    "task": {"type": "string", "minLength": 1},
+    "goal": {"type": "string", "minLength": 1},
+    "plan": {"type": "array", "items": {"type": "string"}},
+    "actions": {"type": "array", "items": {"$ref": "#/$defs/action"}},
+    "observations": {"type": "array", "items": {"type": "string"}},
+    "replanning_events": {"type": "array", "items": {"type": "object"}},
+    "verification": {
+      "type": "object",
+      "properties": {
+        "method": {"type": "string"},
+        "status": {"type": "string", "enum": ["passed", "failed", "partial", "not_run"]},
+        "evidence": {"type": "string"},
+        "verifier": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "outcome": {"type": "string", "enum": ["success", "partial_success", "failure", "abandoned"]},
+    "failure_analysis": {"type": "string"},
+    "recovery_strategy": {"type": "string"},
+    "reward": {
+      "type": "object",
+      "properties": {
+        "value": {"type": "number"},
+        "scale": {"type": "string"},
+        "verifier": {"type": "string"},
+        "verifier_version": {"type": "string"},
+        "reward_verified": {"type": "boolean"}
+      },
+      "additionalProperties": true
+    },
+    "provenance": {"type": "object", "required": ["origin_type"], "properties": {"origin_type": {"type": "string"}, "source_id": {"type": "string"}, "source_url": {"type": "string", "format": "uri"}, "license": {"type": "string"}, "trace_checksum": {"type": "string"}}, "additionalProperties": true}
+  },
+  "$defs": {
+    "action": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {"type": "string", "enum": ["tool_call", "tool_result", "delegate", "message", "observation", "replan"]},
+        "tool": {"type": "string"},
+        "operation": {"type": "string"},
+        "input": {"type": ["object", "string", "array", "number", "boolean", "null"]},
+        "output": {"type": ["object", "string", "array", "number", "boolean", "null"]},
+        "status": {"type": "string", "enum": ["success", "error", "timeout", "blocked", "unknown"]},
+        "started_at": {"type": "string", "format": "date-time"},
+        "duration_ms": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

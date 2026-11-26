@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://trimorious.org/schemas/v1/knowledge-document.schema.json",
+  "title": "Trimorious knowledge document",
+  "type": "object",
+  "required": ["doc_id", "title", "source", "section", "text"],
+  "properties": {
+    "doc_id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "source": {"type": "string", "minLength": 1},
+    "section": {"type": "string"},
+    "text": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}
