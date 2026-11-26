@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://trimorious.org/schemas/v2/safety-reliability.schema.json",
+  "title": "Trimorious safety and reliability example",
+  "type": "object",
+  "required": ["case_id", "risk_category", "user_request", "expected_behavior", "review"],
+  "properties": {
+    "case_id": {"type": "string"},
+    "risk_category": {"type": "string", "enum": ["prompt_injection", "malicious_tool_instruction", "citation_manipulation", "scientific_misinformation", "unsupported_medical_claim", "hazardous_scientific_request", "privacy", "confidential_document", "uncertainty", "abstention", "other"]},
+    "risk_level": {"type": "string", "enum": ["low", "moderate", "high", "critical"]},
+    "user_request": {"type": "string", "minLength": 1},
+    "attack_or_failure_pattern": {"type": "string"},
+    "expected_behavior": {"type": "string", "minLength": 1},
+    "reference_response": {"type": "string"},
+    "allowed_tool_actions": {"type": "array", "items": {"type": "string"}},
+    "disallowed_tool_actions": {"type": "array", "items": {"type": "string"}},
+    "policy_reference": {"type": "string"},
+    "review": {"type": "object", "required": ["status"], "properties": {"status": {"type": "string", "enum": ["unreviewed", "automated_check", "human_reviewed", "adjudicated"]}, "reviewer_id_pseudonymous": {"type": "string"}, "notes": {"type": "string"}}, "additionalProperties": true},
+    "provenance": {"type": "object", "properties": {"source_ref": {"type": "string"}, "license": {"type": "string"}, "origin_type": {"type": "string"}}, "additionalProperties": true}
+  },
+  "additionalProperties": true
+}
