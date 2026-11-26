@@ -1,0 +1,69 @@
+{
+  "registry_version": "1.0.0",
+  "project": "Trimorious",
+  "owner": "roime81",
+  "default_hub_revision": "main",
+  "datasets": [
+    {
+      "id": "D01",
+      "name": "Symbolic Trajectories",
+      "hub_repo": "roime81/trimorious-symbolic-trajectories",
+      "github_mirror": "roime81/trimorious-symbolic-trajectories",
+      "record_type": "chat_messages",
+      "schema": "schemas/v1/messages-record.schema.json",
+      "splits": ["train"],
+      "observed_examples": {"train": 7784},
+      "intended_use": ["candidate_sft", "symbolic_reasoning"],
+      "current_gate": "record_level_audit_required",
+      "notes": "The messages field is confirmed by published dataset metadata. The symbolic content, correctness, provenance and verification rate have not yet been assessed."
+    },
+    {
+      "id": "D02",
+      "name": "Scientific Instructions",
+      "hub_repo": "roime81/trimorious-scientific-instructions",
+      "github_mirror": "roime81/trimorious-scientific-instructions",
+      "record_type": "chat_messages",
+      "schema": "schemas/v1/messages-record.schema.json",
+      "splits": ["train", "validation"],
+      "observed_examples": {"train": 3335, "validation": 371},
+      "intended_use": ["candidate_sft", "scientific_instruction_following"],
+      "current_gate": "record_level_audit_required",
+      "notes": "The published validation split must be preserved. Check exact and semantic leakage before producing a new holdout."
+    },
+    {
+      "id": "D03",
+      "name": "Knowledge Base",
+      "hub_repo": "roime81/trimorious-knowledge-base",
+      "github_mirror": "roime81/trimorious-knowledge-base",
+      "record_type": "knowledge_document",
+      "schema": "schemas/v1/knowledge-document.schema.json",
+      "splits": ["train"],
+      "observed_examples": {"train": 7784},
+      "intended_use": ["retrieval_corpus", "evidence_grounding"],
+      "current_gate": "provenance_and_rights_review_required",
+      "notes": "Treat as a retrieval/evidence corpus by default. Do not automatically concatenate full documents into SFT examples."
+    },
+    {
+      "id": "D04",
+      "name": "Agentic Reasoning Knowledge",
+      "hub_repo": "roime81/trimorious-agentic-reasoning-knowledge",
+      "github_mirror": "roime81/trimorious-agentic-reasoning-knowledge",
+      "record_type": "agentic_messages",
+      "schema": "schemas/v1/agentic-record.schema.json",
+      "splits": ["train"],
+      "observed_examples": {"train": 225},
+      "intended_use": ["agentic_sft_candidate", "tool_use_research"],
+      "current_gate": "ground_truth_and_trace_audit_required",
+      "notes": "225 published training records and no published validation split. Too small to justify standalone RL or preference optimization without substantial expansion and independent evaluation."
+    }
+  ],
+  "license_review": {
+    "repository_license": "Apache-2.0",
+    "status": "provisional",
+    "required_checks": [
+      "Confirm the license declared on each Hugging Face dataset card.",
+      "Record the license and redistribution terms of every upstream paper, abstract, dataset, code sample and derived passage.",
+      "Do not assume that a repository-level Apache-2.0 license grants rights to third-party source material."
+    ]
+  }
+}
