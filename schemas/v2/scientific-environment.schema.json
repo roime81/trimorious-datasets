@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://trimorious.org/schemas/v2/scientific-environment.schema.json",
+  "title": "Trimorious executable scientific environment",
+  "type": "object",
+  "required": ["environment_id", "domain", "observation_space", "action_space", "transition_spec", "termination", "reward_spec", "sandbox"],
+  "properties": {
+    "environment_id": {"type": "string"},
+    "version": {"type": "string"},
+    "domain": {"type": "string", "enum": ["mathematics", "physics", "chemistry", "scientific_data_analysis", "optimization", "research_retrieval", "experimental_design", "multi_step_investigation"]},
+    "description": {"type": "string"},
+    "observation_space": {"type": "object", "required": ["schema"], "properties": {"schema": {"type": "object"}, "description": {"type": "string"}}, "additionalProperties": true},
+    "action_space": {"type": "object", "required": ["schema"], "properties": {"schema": {"type": "object"}, "allowed_tools": {"type": "array", "items": {"type": "string"}}, "description": {"type": "string"}}, "additionalProperties": true},
+    "transition_spec": {"type": "object", "required": ["implementation_ref"], "properties": {"implementation_ref": {"type": "string"}, "deterministic": {"type": "boolean"}, "state_transition_description": {"type": "string"}}, "additionalProperties": true},
+    "initialization": {"type": "object"},
+    "termination": {"type": "object", "required": ["conditions"], "properties": {"conditions": {"type": "array", "items": {"type": "string"}}, "max_steps": {"type": "integer", "minimum": 1}}, "additionalProperties": true},
+    "reward_spec": {"type": "object", "required": ["definition", "verifiable"], "properties": {"definition": {"type": "string"}, "verifiable": {"type": "boolean"}, "verifier_ref": {"type": "string"}, "reward_range": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2}}, "additionalProperties": true},
+    "sandbox": {"type": "object", "required": ["network_policy", "filesystem_policy", "resource_limits"], "properties": {"network_policy": {"type": "string", "enum": ["disabled", "allowlisted", "restricted"]}, "filesystem_policy": {"type": "string", "enum": ["ephemeral_only", "read_only_inputs", "restricted_write"]}, "resource_limits": {"type": "object", "properties": {"cpu_seconds": {"type": "number", "exclusiveMinimum": 0}, "memory_mb": {"type": "integer", "minimum": 1}, "wall_time_seconds": {"type": "number", "exclusiveMinimum": 0}}, "additionalProperties": true}}, "additionalProperties": true},
+    "replay": {"type": "object", "properties": {"seeded": {"type": "boolean"}, "reset_supported": {"type": "boolean"}, "artifact_checksums": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": true},
+    "provenance": {"type": "object", "properties": {"source_ref": {"type": "string"}, "license": {"type": "string"}, "maintainer": {"type": "string"}}, "additionalProperties": true}
+  },
+  "additionalProperties": true
+}
