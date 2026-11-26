@@ -198,7 +198,9 @@
         "dimensional_analysis",
         "incorrect_derivations_and_error_labels"
       ],
-      "current_gate": "not_created"
+      "current_gate": "not_created",
+      "proposed_hub_repo": "roime81/trimorious-mathematical-verification",
+      "proposed_github_mirror": "roime81/trimorious-mathematical-verification"
     },
     {
       "id": "D06",
@@ -225,7 +227,9 @@
         "citation_integrity"
       ],
       "current_gate": "expert_labeling_protocol_required",
-      "notes": "Do not create preference labels with an unvalidated judge alone. Require rubric-based annotation, adjudication and agreement measurement."
+      "notes": "Do not create preference labels with an unvalidated judge alone. Require rubric-based annotation, adjudication and agreement measurement.",
+      "proposed_hub_repo": "roime81/trimorious-scientific-preferences",
+      "proposed_github_mirror": "roime81/trimorious-scientific-preferences"
     },
     {
       "id": "D07",
@@ -250,7 +254,9 @@
         "long_context"
       ],
       "current_gate": "split_governance_and_hidden_test_policy_required",
-      "notes": "Evaluation-only. Never use D07 test items for SFT, DPO, reward-model training, RL, prompt tuning or repeated model selection."
+      "notes": "Evaluation-only. Never use D07 test items for SFT, DPO, reward-model training, RL, prompt tuning or repeated model selection.",
+      "proposed_hub_repo": "roime81/trimorious-scientific-evaluation",
+      "proposed_github_mirror": "roime81/trimorious-scientific-evaluation"
     },
     {
       "id": "D08",
@@ -283,7 +289,9 @@
         "bilingual_explanations",
         "equivalent_technical_questions"
       ],
-      "current_gate": "native_language_review_and_translation_provenance_required"
+      "current_gate": "native_language_review_and_translation_provenance_required",
+      "proposed_hub_repo": "roime81/trimorious-multilingual-science",
+      "proposed_github_mirror": "roime81/trimorious-multilingual-science"
     },
     {
       "id": "D09",
@@ -311,7 +319,9 @@
         "uncertainty_and_abstention",
         "document_handling"
       ],
-      "current_gate": "risk_taxonomy_and_policy_review_required"
+      "current_gate": "risk_taxonomy_and_policy_review_required",
+      "proposed_hub_repo": "roime81/trimorious-safety-and-reliability",
+      "proposed_github_mirror": "roime81/trimorious-safety-and-reliability"
     },
     {
       "id": "D10",
@@ -341,7 +351,9 @@
         "multi_step_investigation"
       ],
       "current_gate": "sandboxed_environment_contract_and_reward_validation_required",
-      "notes": "Every environment must define observation, action space, transition, termination, resource limits and verifiable reward. Environments are not the same unit as generated episodes."
+      "notes": "Every environment must define observation, action space, transition, termination, resource limits and verifiable reward. Environments are not the same unit as generated episodes.",
+      "proposed_hub_repo": "roime81/trimorious-scientific-environments",
+      "proposed_github_mirror": "roime81/trimorious-scientific-environments"
     }
   ],
   "license_review": {
