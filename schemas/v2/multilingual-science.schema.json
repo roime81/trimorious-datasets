@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://trimorious.org/schemas/v2/multilingual-science.schema.json",
+  "title": "Trimorious multilingual science example",
+  "type": "object",
+  "required": ["example_id", "language", "content", "provenance", "review"],
+  "properties": {
+    "example_id": {"type": "string"},
+    "language": {"type": "string", "enum": ["en", "ms", "id", "zh", "ar", "es", "fr", "ja"]},
+    "source_language": {"type": "string"},
+    "domain": {"type": "string"},
+    "content": {"type": "string", "minLength": 1},
+    "paired_example_ids": {"type": "array", "items": {"type": "string"}},
+    "terminology": {"type": "array", "items": {"type": "object", "required": ["term"], "properties": {"term": {"type": "string"}, "definition": {"type": "string"}, "equivalent_terms": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": true}},
+    "translation": {"type": "object", "properties": {"method": {"type": "string"}, "model": {"type": "string"}, "translator_id_pseudonymous": {"type": "string"}, "reviewer_id_pseudonymous": {"type": "string"}}, "additionalProperties": true},
+    "provenance": {"type": "object", "required": ["origin_type"], "properties": {"origin_type": {"type": "string"}, "source_ref": {"type": "string"}, "license": {"type": "string"}}, "additionalProperties": true},
+    "review": {"type": "object", "required": ["status"], "properties": {"status": {"type": "string", "enum": ["unreviewed", "machine_checked", "native_language_reviewed", "adjudicated"]}, "technical_accuracy": {"type": "number", "minimum": 0, "maximum": 1}, "notes": {"type": "string"}}, "additionalProperties": true}
+  },
+  "additionalProperties": true
+}
